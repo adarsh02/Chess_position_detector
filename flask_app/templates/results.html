@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chess Evaluation Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .left-section {
+            flex: 1;
+            text-align: center;
+        }
+
+        .right-section {
+            flex: 2;
+            padding-left: 30px;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333333;
+        }
+
+        img {
+            width: 600px;
+            height: 420px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+        }
+
+        a {
+            display: block;
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background-color: #f5f5f5;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            {% if fen %}
+            <img src="{{url_for('static', filename=board_svg)}}" alt="Chess Board">
+            {% endif %}
+        </div>
+        <div class="right-section">
+            <h1 class="highlight">Evaluation Result</h1>
+            {% if fen %}
+            <p><span class="highlight">Best Move:</span> {{ best_move }}</p>
+            <p><span class="highlight">Evaluation:</span> {{ evaluation }}</p>
+            <p><span class="highlight">Game State:</span> {{ game_state }}</p>
+            <p><span class="highlight">Want to analyze further?</span> Go to <a href="https://lichess.org/analysis/{{fen}}">Lichess</a></p>
+            <p><span class="highlight">Not the right orientation? </span><a href="{{ url_for('flip', fen=fen,play_as=play_as) }}">Flip board</a></p>
+            <a href="/">Back to Home</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
